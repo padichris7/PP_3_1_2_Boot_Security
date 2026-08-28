@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Панель администратора</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<h1>Панель администратора</h1>
+
+<div style="margin-bottom: 20px;">
+    <a th:href="@{/}" style="margin-right: 10px;">
+        На главную страницу
+    </a>
+
+    <a th:href="@{/user}" style="margin-right: 10px;">
+        Мои данные
+    </a>
+
+    <form th:action="@{/logout}"
+          method="post"
+          style="display: inline;">
+        <button type="submit">Выйти</button>
+    </form>
+</div>
+
+<hr>
+
+<p>
+    <a th:href="@{/admin/user/new}">
+        Добавить пользователя
+    </a>
+</p>
+
+<h2>Пользователи</h2>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Логин</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Возраст</th>
+        <th>Email</th>
+        <th>Роли</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="u : ${users}">
+        <td th:text="${u.id}"></td>
+        <td th:text="${u.username}"></td>
+        <td th:text="${u.firstName}"></td>
+        <td th:text="${u.lastName}"></td>
+        <td th:text="${u.age}"></td>
+        <td th:text="${u.email}"></td>
+
+        <td>
+            <span th:each="r : ${u.roles}"
+                  th:text="${r.name} + ' '"></span>
+        </td>
+
+        <td>
+            <a th:href="@{/admin/user/{id}(id=${u.id})}">
+                Просмотр
+            </a>
+
+            <a th:href="@{/admin/user/{id}/edit(id=${u.id})}">
+                Изменить
+            </a>
+
+            <form th:action="@{/admin/user/{id}/delete(id=${u.id})}"
+                  method="post"
+                  style="display: inline;">
+                <button type="submit">Удалить</button>
+            </form>
+        </td>
+    </tr>
+
+    <tr th:if="${#lists.isEmpty(users)}">
+        <td colspan="8">
+            Пользователи отсутствуют
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

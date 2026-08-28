@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<h1>Личный кабинет</h1>
+
+<div class="navigation">
+
+    <a th:href="@{/}" class="nav-button">
+        На главную страницу
+    </a>
+
+    <a th:if="${isAdmin}"
+       th:href="@{/admin}"
+       class="nav-button">
+        Панель администратора
+    </a>
+
+    <form th:action="@{/logout}"
+          method="post"
+          class="logout-form">
+
+        <button type="submit" class="nav-button">
+            Выйти
+        </button>
+    </form>
+
+</div>
+
+<hr>
+
+<h2>Информация о пользователе</h2>
+
+<div class="user-profile">
+
+    <div class="profile-row">
+        <span class="profile-label">Логин</span>
+        <span class="profile-value" th:text="${user.username}"></span>
+    </div>
+
+    <div class="profile-row">
+        <span class="profile-label">Имя</span>
+        <span class="profile-value"
+              th:text="${user.firstName != null && !user.firstName.isBlank()
+                  ? user.firstName
+                  : 'Не указано'}">
+        </span>
+    </div>
+
+    <div class="profile-row">
+        <span class="profile-label">Фамилия</span>
+        <span class="profile-value"
+              th:text="${user.lastName != null && !user.lastName.isBlank()
+                  ? user.lastName
+                  : 'Не указано'}">
+        </span>
+    </div>
+
+    <div class="profile-row">
+        <span class="profile-label">Возраст</span>
+        <span class="profile-value"
+              th:text="${user.age != null ? user.age : 'Не указан'}">
+        </span>
+    </div>
+
+    <div class="profile-row">
+        <span class="profile-label">Email</span>
+        <span class="profile-value"
+              th:text="${user.email != null && !user.email.isBlank()
+                  ? user.email
+                  : 'Не указан'}">
+        </span>
+    </div>
+
+</div>
+
+</body>
+</html>

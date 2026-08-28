@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Профиль пользователя</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<h1>Профиль пользователя #[[${user.id}]]</h1>
+
+<p><strong>Имя:</strong> <span th:text="${user.firstName}"></span></p>
+<p><strong>Фамилия:</strong> <span th:text="${user.lastName}"></span></p>
+<p><strong>Возраст:</strong> <span th:text="${user.age}"></span></p>
+<p><strong>Email (логин):</strong> <span th:text="${user.email}"></span></p>
+
+<h3>Роли</h3>
+<ul>
+    <li th:each="r : ${user.roles}" th:text="${r.name}"></li>
+    <li th:if="${#lists.isEmpty(user.roles)}">Нет назначенных ролей</li>
+</ul>
+
+<hr/>
+<a th:href="@{/admin/user/{id}/edit(id=${user.id})}">Редактировать этого пользователя</a> |
+<a href="/admin">Вернуться к списку</a>
+
+<!-- logout -->
+<form th:action="@{/logout}" method="post" style="margin-top:30px;">
+    <button type="submit">Выйти</button>
+</form>
+</body>
+</html>

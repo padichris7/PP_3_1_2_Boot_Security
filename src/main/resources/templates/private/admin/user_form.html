@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <title th:text="${user.id == null}
+        ? 'Добавление пользователя'
+        : 'Редактирование пользователя'">
+    </title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<h1 th:text="${user.id == null}
+    ? 'Добавление пользователя'
+    : 'Редактирование пользователя'">
+</h1>
+
+<div style="margin-bottom: 20px;">
+    <a th:href="@{/}">
+        На главную страницу
+    </a>
+
+    <span> | </span>
+
+    <a th:href="@{/user}">
+        Мои данные
+    </a>
+
+    <span> | </span>
+
+    <a th:href="@{/admin}">
+        Панель администратора
+    </a>
+
+    <span> | </span>
+
+    <form th:action="@{/logout}"
+          method="post"
+          style="display: inline;">
+        <button type="submit">Выйти</button>
+    </form>
+</div>
+
+<hr>
+
+<form th:action="${user.id == null}
+        ? @{/admin/user}
+        : @{/admin/user/{id}(id=${user.id})}"
+      method="post">
+
+    <input type="hidden"
+           name="id"
+           th:value="${user.id}">
+
+    <div>
+        <label for="username">Логин *</label>
+        <br>
+        <input type="text"
+               id="username"
+               name="username"
+               th:value="${user.username}"
+               required>
+    </div>
+
+    <br>
+
+    <div>
+        <label for="password">
+            Пароль
+            <span th:if="${user.id == null}">*</span>
+        </label>
+        <br>
+
+        <input type="password"
+               id="password"
+               name="password"
+               placeholder="Введите пароль"
+               th:required="${user.id == null}">
+
+        <small th:if="${user.id != null}">
+            Оставьте поле пустым, если пароль менять не нужно.
+        </small>
+    </div>
+
+    <br>
+
+    <div>
+        <label for="firstName">Имя</label>
+        <br>
+        <input type="text"
+               id="firstName"
+               name="firstName"
+               th:value="${user.firstName}">
+    </div>
+
+    <br>
+
+    <div>
+        <label for="lastName">Фамилия</label>
+        <br>
+        <input type="text"
+               id="lastName"
+               name="lastName"
+               th:value="${user.lastName}">
+    </div>
+
+    <br>
+
+    <div>
+        <label for="age">Возраст</label>
+        <br>
+        <input type="number"
+               id="age"
+               name="age"
+               min="0"
+               max="120"
+               th:value="${user.age}">
+    </div>
+
+    <br>
+
+    <div>
+        <label for="email">Email</label>
+        <br>
+        <input type="email"
+               id="email"
+               name="email"
+               th:value="${user.email}">
+    </div>
+
+    <br>
+
+    <div>
+        <p>Роли *</p>
+
+        <div th:each="role : ${roles}">
+            <label>
+                <input type="checkbox"
+                       name="roles"
+                       th:value="${role.id}"
+                       th:checked="${user.roles.![id].contains(role.id)}">
+
+                <span th:text="${role.name}"></span>
+            </label>
+        </div>
+    </div>
+
+    <br>
+
+    <button type="submit"
+            th:text="${user.id == null}
+                ? 'Создать пользователя'
+                : 'Сохранить изменения'">
+    </button>
+
+</form>
+
+</body>
+</html>

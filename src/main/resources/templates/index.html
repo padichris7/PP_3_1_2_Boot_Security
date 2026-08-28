@@ -1,11 +1,24 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Spring Security Example</title>
+    <title>Добро пожаловать</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
-<h1>Welcome to Index PAGE!</h1>
+<h1>Добро пожаловать в приложение</h1>
 
+<p>Это демонстрационное приложение на Spring Boot + Spring Security.</p>
 
+<div>
+    <a th:href="@{/login}">Войти в систему</a>
+    |
+    <a th:href="@{/register}">Зарегистрироваться</a>
+</div>
+
+<div th:if="${param.success}" class="alert alert-success">
+    Регистрация прошла успешно. Теперь войдите в систему.
+</div>
+
+<p style="margin-top:40px; font-size:0.9em; color:#666;"></p>
 </body>
 </html>
