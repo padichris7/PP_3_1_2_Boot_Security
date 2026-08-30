@@ -22,7 +22,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -36,15 +36,6 @@ public class User implements UserDetails {
 
     public User() {
     }
-
-    public User(String firstName, String lastName, int age, String email, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.email = email;
-        this.password = password;
-    }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
