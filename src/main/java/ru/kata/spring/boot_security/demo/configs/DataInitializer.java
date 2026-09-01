@@ -23,10 +23,10 @@ public class DataInitializer {
                 User user = new User();
                 user.setUsername("user");
                 user.setPassword("user");
-                user.setFirstName("Обычный");
-                user.setLastName("Пользователь");
-                user.setAge(25);
-                user.setEmail("user@example.com");
+                user.setFirstName("user");
+                user.setLastName("user");
+                user.setAge(30);
+                user.setEmail("user@mail.ru");
                 user.setRoles(Set.of(userRole));
 
                 userService.createUser(user);
@@ -36,10 +36,10 @@ public class DataInitializer {
                 User admin = new User();
                 admin.setUsername("admin");
                 admin.setPassword("admin");
-                admin.setFirstName("Администратор");
-                admin.setLastName("Системы");
-                admin.setAge(30);
-                admin.setEmail("admin@example.com");
+                admin.setFirstName("admin");
+                admin.setLastName("admin");
+                admin.setAge(35);
+                admin.setEmail("admin@mail.ru");
                 admin.setRoles(Set.of(userRole, adminRole));
 
                 userService.createUser(admin);

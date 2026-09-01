@@ -21,6 +21,7 @@ public class AdminController {
     @GetMapping
     public String adminPage(Model model) {
         model.addAttribute("users", userService.findAllUsers());
+        model.addAttribute("roles", roleService.findAllRoles());
         return "private/admin/admin";
     }
 
@@ -37,11 +38,6 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/user/{id}")
-    public String viewUser(@PathVariable Long id, Model model) {
-        model.addAttribute("user", userService.findUserById(id));
-        return "private/admin/user_view";
-    }
 
     @GetMapping("/user/{id}/edit")
     public String showEditUserFrom(@PathVariable Long id, Model model) {
